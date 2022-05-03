@@ -10,17 +10,16 @@ tts = pyttsx3.init()
 while True:
     current = datetime.now()
     if current.minute >= 30:
-        war_minute = abs(current.minute - (30 + 30))
+        war_minute = 60 - current.minute
     else:
-        war_minute = abs(current.minute - 30)
-    war_seconds = war_minute * 60 + (abs(current.second - 60))
-    countdown = 0
+        war_minute = 30 - current.minute
+    war_seconds = war_minute * 60 - current.second
     for spawn_timer in spawn:
         if spawn_timer < war_seconds:
             countdown = war_seconds - spawn_timer
             break
         else:
             countdown = war_seconds
-    if countdown % 5 == 0 or countdown < 5:
+    if countdown % 10 == 0 or countdown <= 5:
         tts.say(str(countdown))
         tts.runAndWait()
